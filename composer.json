@@ -14,5 +14,24 @@
             "email": "mathias.pinon@etudiant.univ-reims.fr"
         }
     ],
-    "require": {}
+    "require": {},
+
+    "scripts": {
+        "start:linux": [
+            "bin/run-server.sh "
+        ],
+        "test:cs": [
+            "php vendor/bin/php-cs-fixer fix --dry-run"
+        ],
+        "fix:cs": [
+            "php vendor/bin/php-cs-fixer fix"
+        ],
+        "start:windows": [
+            "bin/run-server.bat"
+        ],
+        "config": {
+            "process-timeout": 0
+        }
+    }
 }
+
