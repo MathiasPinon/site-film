@@ -1,6 +1,6 @@
 {
-    "name": "mathi/sae_php",
-    "description": "Développement d'une application WEB de consulatation et modification de film",
+    "name": "pino0017/php-crud-music",
+    "description": "Développement d'une application Web de consultation et modification de morceaux de musique",
     "type": "project",
     "license": "Copyleft",
     "autoload": {
@@ -8,14 +8,27 @@
             "": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
-            "name": "pino0017",
+            "name": "Mathias Pinon",
             "email": "mathias.pinon@etudiant.univ-reims.fr"
         }
     ],
-    "require": {},
-
+    "require": {
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.16",
+        "codeception/codeception": "~4.2",
+        "codeception/module-phpbrowser": "~1",
+        "codeception/module-asserts": "~1",
+        "codeception/module-db": "~1"
+    },
     "scripts": {
         "start:linux": [
             "bin/run-server.sh "
@@ -34,4 +47,3 @@
         }
     }
 }
-
