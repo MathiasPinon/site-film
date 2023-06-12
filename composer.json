@@ -1,0 +1,18 @@
+{
+    "name": "mathi/sae_php",
+    "description": "Développement d'une application WEB de consulatation et modification de film",
+    "type": "project",
+    "license": "Copyleft",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "pino0017",
+            "email": "mathias.pinon@etudiant.univ-reims.fr"
+        }
+    ],
+    "require": {}
+}
