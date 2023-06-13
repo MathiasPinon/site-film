@@ -27,6 +27,7 @@ class Picture
     }
 
     /**
+     * Méthode de fonction qui permet de trouver une image d'un film grace à l'identifiant du poster
      * @param int $id
      * @param string $jpeg
      */
