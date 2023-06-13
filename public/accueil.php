@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Database\MyPdo;
 use \html\AppWebPage;
+use Entity\Movie;
 
 $webPage = new AppWebPage("Accueil");
 
@@ -20,7 +21,7 @@ SQL
 $stmt->execute();
 
 while (($film = $stmt->fetch()) !== false) {
-    $webPage->appendContent("<a href='http://localhost:8080/public/film.php'>.<div class='film'>\n<div class='poster'>\n<img src ='../images/poster_default.png' alt='default'/>\n</div>\n<p>".$webPage->escapestring($film['title'])."</p>\n</div>\n"."</a>");
+    $webPage->appendContent("<a href='film.php?film={$film['id']}'>.<div class='film'>\n<div class='poster'>\n<img src ='../images/poster_default.png' alt='default'/>\n</div>\n<p>".$webPage->escapestring($film['title'])."</p>\n</div>\n"."</a>");
 }
 
 $webPage->appendContent("</main><footer>".$webPage->getLastModififcation()."</footer>");
