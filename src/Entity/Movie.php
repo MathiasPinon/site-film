@@ -16,7 +16,7 @@ class Movie
     private int $runtime;
     private string $tagline ;
     private string $title ;
-
+    private int $id;
     /**
      * Getter de Poster Id
      * @return int
@@ -62,20 +62,32 @@ class Movie
         return $this->title;
     }
 
-
     /**
-     * Méthode de classe qui permet de donner tous les films
-     * @return array
+     * @return int
      */
-    public static function getAllMovie():array{
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+
+
+
+
+    public static function FindById(int $id): array|false
+    {
         $sql = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT posterId , originalLanguage , originalTitle , overview , releaseDate , runtime , tagline , title 
-            FROM movie 
-        
-SQL );
+            SELECT  posterId , originalLanguage , originalTitle , overview , releaseDate , runtime , tagline , title , id
+            FROM movie
+            WHERE id = :id 
+SQL
+        );
+        $sql -> execute([":id"=>$id]);
+        return $sql -> fetchAll(PDO::FETCH_CLASS , Movie::class);
 
-        $sql->execute();
-        return $sql->fetchAll(PDO::FETCH_CLASS, Movie::class);
     }
+
+
+
 }
