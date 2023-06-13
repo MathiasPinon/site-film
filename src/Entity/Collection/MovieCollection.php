@@ -5,7 +5,9 @@ namespace Entity\Collection;
 
 use Database\MyPdo;
 use Entity\Movie;
-use Entity\PDO;
+use PDO;
+use Entity\People;
+
 
 class MovieCollection
 {
@@ -21,7 +23,7 @@ class MovieCollection
         
 SQL );
         $sql->execute();
-        return $sql->fetchAll(PDO::FETCH_CLASS, Movie::class);
+        return $sql->fetchAll(PDO::FETCH_CLASS,Movie::class );
     }
 
 }
