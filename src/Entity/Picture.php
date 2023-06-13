@@ -32,7 +32,7 @@ class Picture
      * @param string $jpeg
      */
 
-    public static function FindPosterById(int $idPoster){
+    public static function findPosterById(int $idPoster){
         $sql = MyPdo::getInstance()->prepare(
             <<<SQL
                 SELECT i.id , i.jpeg 
@@ -45,5 +45,20 @@ SQL
 
         $sql->execute([':Id'=> $idPoster]);
         return $sql->fetchAll(\PDO::FETCH_CLASS , Picture::class);
+    }
+
+    public static function findAvatarById(int $avatarId){
+        $sql = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT i.id , i.jpeg 
+                FROM image i
+                INNER JOIN poeple p ON (i.id = p.avatarId)
+                WHERE m.avatarId = :Id
+SQL
+        );
+
+        $sql->execute([':Id'=> $avatarId]);
+        return $sql->fetchAll(\PDO::FETCH_CLASS , Picture::class);
+
     }
 }
