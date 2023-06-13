@@ -7,9 +7,14 @@ use html\AppWebPage;
 use Entity\Movie;
 use Entity\Collection\PeopleCollection;
 
+if (isset($_GET['id']) && ctype_digit($_GET['id'])) {
+    $id = $_GET['id'];
+}
+
 $webPage = new AppWebPage();
 $film = new Movie();
-$id = $film->getId();
+$film->findById($id);
+
 
 $webPage->appendContent("<header>".$film->getTitle()."</header><main>");
 
