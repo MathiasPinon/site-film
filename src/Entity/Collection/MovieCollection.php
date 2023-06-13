@@ -26,4 +26,18 @@ SQL );
         return $sql->fetchAll(PDO::FETCH_CLASS,Movie::class );
     }
 
+    public static function getAllMovieByPeople(int $idPeople){
+        $sql = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT m.posterId , m.originalLanguage , m.originalTitle , m.overview , m.releaseDate , m.runtime , m.tagline , m.title , m.id
+            FROM movie m
+            INNER JOIN cast c ON (m.id = c.movieId)
+            WHERE peopleId = :idPeople
+SQL
+        );
+
+        $sql->execute([':idPeople' => $idPeople]);
+        return $sql->fetchAll(PDO::FETCH_CLASS,Movie::class);
+    }
+
 }

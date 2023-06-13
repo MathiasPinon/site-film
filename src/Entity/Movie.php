@@ -45,6 +45,15 @@ class Movie
     }
 
     /**
+     * @return string
+     */
+    public function getOverview(): string
+    {
+        return $this->overview;
+    }
+
+
+    /**
      * Getter de TagLine
      * @return string
      */
@@ -69,9 +78,6 @@ class Movie
     {
         return $this->id;
     }
-
-
-
 
 
     public static function FindMovieById(int $id): array|false

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
+use PDO;
 
 class Picture
 {
@@ -44,20 +45,20 @@ SQL
         );
 
         $sql->execute([':Id'=> $idPoster]);
-        return $sql->fetchAll(\PDO::FETCH_CLASS , Picture::class);
+        return $sql->fetchAll(PDO::FETCH_CLASS , Picture::class)[0];
     }
 
     public static function findAvatarById(int $avatarId){
         $sql = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT i.id , i.jpeg 
-                FROM image i
-                INNER JOIN poeple p ON (i.id = p.avatarId)
-                WHERE m.avatarId = :Id
+           SELECT i.id , i.jpeg 
+            FROM image i
+            INNER JOIN people p ON (i.id = p.avatarId)
+            WHERE p.avatarId = :Id;        
 SQL
         );
 
         $sql->execute([':Id'=> $avatarId]);
-        return $sql->fetchAll(\PDO::FETCH_CLASS , Picture::class);
+        return $sql->fetchAll(\PDO::FETCH_CLASS , Picture::class)[0];
     }
 }
