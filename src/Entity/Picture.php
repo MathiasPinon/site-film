@@ -31,8 +31,6 @@ class Picture
      * @param string $jpeg
      */
 
-
-
     public static function FindById(int $idPoster){
         $sql = MyPdo::getInstance()->prepare(
             <<<SQL
