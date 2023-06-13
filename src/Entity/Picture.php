@@ -59,6 +59,5 @@ SQL
 
         $sql->execute([':Id'=> $avatarId]);
         return $sql->fetchAll(\PDO::FETCH_CLASS , Picture::class);
-
     }
 }
