@@ -24,7 +24,7 @@ SQL
 $stmt->execute();
 
 while (($film = $stmt->fetch()) !== false) {
-    $webPage->appendContent("<p>".$webPage->escapestring($film['title'])."</p>\n");
+    $webPage->appendContent("<div class='film'>\n<div class='poster'>\n<img src ='../images/poster_default.png' alt='default'/>\n</div>\n<p>".$webPage->escapestring($film['title'])."</p>\n</div>\n");
 }
 
 $webPage->appendContent("</main><footer>".$webPage->getLastModififcation()."</footer>");
