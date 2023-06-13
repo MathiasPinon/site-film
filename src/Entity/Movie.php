@@ -74,7 +74,7 @@ class Movie
 
 
 
-    public static function FindById(int $id): array|false
+    public static function FindMovieById(int $id): array|false
     {
         $sql = MyPdo::getInstance()->prepare(
             <<<SQL
