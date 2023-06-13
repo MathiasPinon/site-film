@@ -15,17 +15,16 @@ $webPage->appendContent("<header>Films</header><main>");
 
 $stmt = MyPDO::getInstance()->prepare(
     <<<SQL
-    SELECT jpeg, originalTitle
-    FROM movie m, image i
-    WHERE m.id = i.id
-    ORDER BY originalTitle
+    SELECT title
+    FROM movie
+    ORDER BY title
 SQL
 );
 
 $stmt->execute();
 
 while (($film = $stmt->fetch()) !== false) {
-    $webPage->appendContent("<p>".$webPage->escapestring($film['originalTitle'])."</p>\n");
+    $webPage->appendContent("<p>".$webPage->escapestring($film['title'])."</p>\n");
 }
 
 $webPage->appendContent("</main><footer>".$webPage->getLastModififcation()."</footer>");
