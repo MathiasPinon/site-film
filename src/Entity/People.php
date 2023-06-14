@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Entity;
 
+use Database\MyPdo;
+use PDO;
+
 class People
 {
     private ?int $avatarId;
@@ -10,7 +13,7 @@ class People
     private ?string $deathday;
     private string $name;
     private string $biography;
-    private string $placeOfBirth;
+    private ?string $placeOfBirth;
     private int $id;
 
     /**
@@ -24,7 +27,7 @@ class People
     /**
      * @return string
      */
-    public function getBirthday(): string
+    public function getBirthday(): ?string
     {
         return $this->birthday;
     }
@@ -32,7 +35,7 @@ class People
     /**
      * @return string
      */
-    public function getDeathday(): string
+    public function getDeathday(): ?string
     {
         return $this->deathday;
     }
@@ -56,7 +59,7 @@ class People
     /**
      * @return string
      */
-    public function getPlaceOfBirth(): string
+    public function getPlaceOfBirth(): ?string
     {
         return $this->placeOfBirth;
     }
@@ -69,5 +72,17 @@ class People
         return $this->id;
     }
 
+    public static function FindPeopleById(int $id): array|false
+    {
+        $sql = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT  avatarId , birthday , deathday , name , biography , placeofBirth, id
+            FROM people
+            WHERE id = :id 
+SQL
+        );
+        $sql->execute([":id" => $id]);
+        return $sql->fetchAll(PDO::FETCH_CLASS, People::class);
+    }
 
 }
