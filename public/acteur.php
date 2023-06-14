@@ -22,14 +22,13 @@ if(isset($_GET['avatarId'])&& ctype_digit($_GET['avatarId'])) {
         </div>
         <main>
         <div class="acteur">
-                <div class="avatar"> <img src ='avatar.php?id={$ligne->getAvatarId()}'  alt='Image {$ligne->getName()}'/> </div>
+                <div class="avatar"> <img src ='avatar.php?id={$ligne->getAvatarId()}'  alt='Image {$ligne->getName()}' width="200px"/> </div>
+                <div class = "infosActeur">
                 <div class="Name_Actor">{$ligne->getName()}</div>
                 <div class="Lieu">{$ligne->getPlaceOfBirth()}</div>
-                <div class="Dates">
-                <div class="Naissance">{$ligne->getBirthday()}</div>
-                <div class="Mort">{$ligne->getDeathday()}</div>
-                </div>
+                <div class="Dates">{$ligne->getBirthday()} - {$ligne->getDeathday()}</div>
                 <div class="Bio">{$ligne->getBiography()}</div>
+                </div>
         </div>
 HTML;
         $movie = \Entity\Collection\MovieCollection::getAllMovieByPeople($idActor);
@@ -40,13 +39,15 @@ HTML;
             $role = $cast->getRole();
             $idPoster = $line->getPosterId();
             $body .= <<<HTML
-            <a href="film.php?filmId={$line->getId()}"><div class="people">
-                <div class="avatar"> <img src ='avatar.php?id={$idPoster}'  alt='Image {$line->getName()}'/> </div>
+            <a href="film.php?filmId={$line->getId()}"><div class="movie">
+                <div class="poster"> <img src ='poster.php?id={$idPoster}'  alt='Image {$line->getTitle()}' width="150px"/> </div>
+                <div class="roleEtFilm">
                 <div class="infosfilm">
                 <div class="Title"> <p> {$line->getTitle()} </p></div>
                 <div class="Date"> <p> {$line->getReleaseDate()} </p></div>
                 </div>
                 <div class="role"> <p> {$role} </p>  </div>
+                </div>
                 </div>
             </div>
             </a>
