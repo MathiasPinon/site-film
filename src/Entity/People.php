@@ -76,7 +76,7 @@ class People
     {
         $sql = MyPdo::getInstance()->prepare(
             <<<SQL
-            SELECT  avatarId , birthday , deathday , name , biography , placeofBirth, id
+            SELECT  *
             FROM people
             WHERE id = :id 
 SQL
