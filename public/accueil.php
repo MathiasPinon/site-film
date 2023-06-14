@@ -10,9 +10,9 @@ $webPage = new \Html\WebPage("Films");
 $webPage->appendCssUrl('/css/accueil.css');
 
 $body =<<<HTML
-<header>
+<div class="header">
 <h1> Films </h1>
-</header>
+</div>
 <main>
 
 HTML;
@@ -28,13 +28,14 @@ foreach ($movie as $ligne) {
     $posterId = $ligne->getPosterId();
     $body .= <<<HTML
         <div class="film">
-        <a href="film.php?filmId={$id}"><div class="poster">
-            <img src ='poster.php?id={$posterId}'  alt='Image {$title}'/>
-        </div>
-        <div>
+        <a href="film.php?filmId={$id}">
+            <div class="poster">
+            <img src ='poster.php?id={$posterId}'  alt='Image {$title}'/></div>
+         <div>
             <p>{$title}</p>
         </div>
         </a>
+        </div>
 HTML;
 }
 
