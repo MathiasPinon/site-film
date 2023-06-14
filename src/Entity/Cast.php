@@ -14,6 +14,14 @@ class Cast
     private int $orderIndex;
     private int $id;
 
+    /**
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
     public static function getCastById(int $movieId , int $peopleId){
         $sql = MyPdo::getInstance()->prepare(
             <<<SQL
@@ -25,6 +33,6 @@ SQL
         );
 
         $sql->execute([':IdMovie'=>$movieId , ':IdPeople'=>$peopleId]);
-        return $sql->fetchAll(PDO::FETCH_CLASS,Cast::class);
+        return $sql->fetchAll(PDO::FETCH_CLASS,Cast::class)[0];
     }
 }
