@@ -6,24 +6,46 @@ use Database\MyPdo;
 use \html\AppWebPage;
 use Entity\Movie;
 
-$webPage = new AppWebPage("Accueil");
+$webPage = new \Html\WebPage("Films");
+$webPage->appendCssUrl('/css/accueil.css');
 
-$webPage->appendContent("<div class='header'><h1>"."Films"."</h1></div><main>");
+$body =<<<HTML
+<header>
+<h1> Films </h1>
+</header>
+<main>
 
-$stmt = MyPDO::getInstance()->prepare(
-    <<<SQL
-    SELECT title,id
-    FROM movie
-    ORDER BY title
-SQL
-);
+HTML;
 
-$stmt->execute();
 
-while (($film = $stmt->fetch()) !== false) {
-    $webPage->appendContent("<a href='film.php?film={$film['id']}'>.<div class='film'>\n<div class='poster'>\n<img src ='../images/poster_default.png' alt='default'/>\n</div>\n<p>".$webPage->escapestring($film['title'])."</p>\n</div>\n"."</a>");
+$movie = \Entity\Collection\MovieCollection::getAllMovie();
+
+
+foreach ($movie as $ligne) {
+    $id = $ligne->getId();
+    $title = $ligne->getTitle();
+    $title = $webPage->escapeString($title);
+    $posterId = $ligne->getPosterId();
+    $body .= <<<HTML
+        <div class="film">
+        <a href="film.php?filmId={$id}"><div class="poster">
+            <img src ='poster.php?id={$posterId}'  alt='Image {$title}'/>
+        </div>
+        <div>
+            <p>{$title}</p>
+        </div>
+        </a>
+HTML;
 }
 
-$webPage->appendContent("</main><footer>".$webPage->getLastModififcation()."</footer>");
+$body.=<<<HTML
+    </div>
+    </main>
+    <footer>
+        {$webPage::getLastModififcation()}
+    </footer>
+HTML;
 
-echo $webPage->ToHTML();
+$webPage->appendContent($body);
+
+echo ($webPage->ToHTML());

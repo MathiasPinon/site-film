@@ -19,8 +19,8 @@ $film->findById($id);
 $webPage->appendContent("<header>".$film->getTitle()."</header><main>");
 
 $webPage->appendContent("<div class='film'>
-                                    <img src='../images/poster_default.png' alt='poster'/>
-                                    <div class='titre'>".$film->getTitle()."</div>".
+                                    <img src='images/poster_default.png' alt='poster'/>
+                                    <div class='titre'>" .$film->getTitle()."</div>".
                                    "<div class='date'>".$film->getReleaseDate()."</div>".
                                    "<div class='titreOriginal'>".$film->getOriginalTitle()."</div>".
                                    "<div class='slogan'>".$film->getTagline()."</div>".
