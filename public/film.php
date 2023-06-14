@@ -14,21 +14,21 @@ if(isset($_GET['filmId'])&& ctype_digit($_GET['filmId'])) {
     $idMovie = (int)$_GET['filmId'];
     $movie = \Entity\Movie::FindMovieById($idMovie);
     foreach ($movie as $ligne) {
-        $page = new \Html\WebPage("film");
-        $page->appendCssUrl('/css/film.php');
+        $page = new \Html\WebPage($ligne->getTitle());
+        $page->appendCssUrl('/css/film.css');
         $body = <<<HTML
-        <main>
+        <div class='header'>
             <h1>{$ligne->getTitle()}</h1>
             <a href="accueil.php"><button type="button">Retour au menu </button> </a>
-        </main>
-        <content>
+        </div>
+        <main>
         <div class="film">
             <img src ='poster.php?id={$ligne->getPosterId()}'  alt='Image {$ligne->getTitle()}'/>
-            <div class="titre"> <p>{$ligne->getTitle()} </div>
-            <div class="date"> <p>{$ligne->getReleaseDate()} </div>
-            <div class="OriginalTitle"> <p>{$ligne->getOriginalTitle()} </div>
-            <div class="Slogan"> <p>{$ligne->getOverview()} </div>
-            <div class="tagline"> <div>{$ligne->getTagline()} </div>
+            <div class="titre"> {$ligne->getTitle()}</div>
+            <div class="date"> {$ligne->getReleaseDate()}</div>
+            <div class="OriginalTitle">{$ligne->getOriginalTitle()}</div>
+            <div class="Slogan">{$ligne->getOverview()}</div>
+            <div class="tagline">{$ligne->getTagline()}</div>
         </div>      
 HTML;
         $people = \Entity\Collection\PeopleCollection::getAllPeopleByMovie($idMovie);
@@ -50,7 +50,7 @@ HTML;
 
     }
     $body .= <<<HTML
-        </content>
+        </main>
         <footer>
         <p> Dernière Modification {$page::getLastModififcation()}
         </footer>
