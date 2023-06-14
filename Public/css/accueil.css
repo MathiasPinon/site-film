@@ -5,7 +5,9 @@ html,body {
     height: 100%;
     width: auto;
     background-color: darkslategray;
+    overflow: hidden;
 }
+
 
 footer,main{
     display: flex;
@@ -27,8 +29,9 @@ main{
     flex-grow: 1;
     flex-wrap : wrap;
     flex-basis: auto;
-    overflow-y: auto;
+    overflow-y: scroll;
     justify-content: space-evenly;
+    height: 78vh;
 }
 
 .film{
