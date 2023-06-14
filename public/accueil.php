@@ -23,9 +23,11 @@ if(isset($_GET['Genre'])){
                 <option value="{$genre->getId()}">{$genre->getName()} </option> 
     HTML;
     }
-        $body.=<<<HTML
+        $body.= <<<HTML
             </select>
             <input type="submit" value="Filtrer">
+            <a href="Create.php"><button type="button">Create</button></a>
+            <a href="Delete.php"><button type="button">Delete</button></a>
             <main>
     HTML;
     $movie = \Entity\Collection\MovieCollection::getAllMovieWithFilter((int)$_GET['Genre']);
@@ -62,6 +64,8 @@ if(isset($_GET['Genre'])){
     echo($webPage->ToHTML());
 
 }
+
+
 else {
     $webPage = new \Html\WebPage("Films");
     $webPage->appendCssUrl('/css/accueil.css');
@@ -83,6 +87,8 @@ HTML;
     $body .= <<<HTML
         </select>
         <input type="submit" value="Filtrer">
+        <a href="Create.php"><button type="button">Create</button></a>
+        <a href="Delete.php"><button type="button">Delete</button></a>
         <main>
 HTML;
 
