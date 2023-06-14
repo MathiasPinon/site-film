@@ -127,6 +127,25 @@ SQL
         $sql->execute([':id'=>$id]);
     }
 
-
+    public function UpdateMovie(string $col , string$param){
+        if($col === "releaseDate") {
+            $sql = MyPdo::getInstance()->prepare(
+                <<<SQL
+            UPDATE movie
+            SET :col = TO_DATE(:param,'DD-MM-YYYY')
+SQL
+            );
+            $sql->execute([':col'=>$col , ':param'=>$param]);
+            $this->releaseDate=$param;
+        }
+        $sql = MyPdo::getInstance()->prepare(
+            <<<SQL
+            UPDATE movie
+            SET :col = :param
+SQL
+        );
+        $sql->execute([':col'=>$col , ':param'=>$param]);
+    }
+    
 
 }
