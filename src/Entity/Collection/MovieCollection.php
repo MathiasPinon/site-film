@@ -40,4 +40,17 @@ SQL
         return $sql->fetchAll(PDO::FETCH_CLASS,Movie::class);
     }
 
+    public static function getAllMovieWithFilter(int $idFilter):array
+    {
+        $sql = MyPdo::getInstance()->prepare(
+            <<<SQL
+            SELECT m.posterId , m.originalLanguage , m.originalTitle , m.overview , m.releaseDate , m.runtime , m.tagline , m.title , m.id
+            FROM movie m 
+            INNER JOIN movie_genre g ON (m.id=g.movieId)
+            WHERE genreId = :idFilter
+            
+    SQL );
+        $sql->execute([':idFilter'=>$idFilter]);
+        return $sql->fetchAll(PDO::FETCH_CLASS,Movie::class );
+    }
 }

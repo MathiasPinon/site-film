@@ -15,9 +15,11 @@ if(isset($_GET['filmId'])&& ctype_digit($_GET['filmId'])) {
     $movie = \Entity\Movie::FindMovieById($idMovie);
     foreach ($movie as $ligne) {
         $page = new \Html\WebPage("film");
+        $page->appendCssUrl('/css/film.php');
         $body = <<<HTML
         <main>
             <h1>{$ligne->getTitle()}</h1>
+            <a href="accueil.php"><button type="button">Retour au menu </button> </a>
         </main>
         <content>
         <div class="film">
@@ -37,11 +39,12 @@ HTML;
             $role = $cast->getRole();
             $idAvatar = $line->getAvatarId();
             $body .= <<<HTML
-            <div class="people">
+            <a href="acteur.php?avatarId={$line->getId()}"><div class="people">
                 <div class="avatar"> <img src ='avatar.php?id={$line->getAvatarId()}'  alt='Image {$line->getName()}'/> </div>
                 <div class="role"> <p> {$role} </p>  </div>
                 <div class="Name_Actor"> <p> {$line->getName()} </p></div>
             </div>
+            </a>
 HTML;
         }
 
