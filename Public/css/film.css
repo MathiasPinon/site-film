@@ -23,6 +23,22 @@ h1{
     font-size: xx-large;
 }
 
+.infosacteur{
+    display: flex;
+    margin : 5px;
+    padding: 1px 4px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.people{
+    display: flex;
+    margin : 5px;
+    padding: 1px 4px;
+    flex-direction: row;
+}
+
+
 main{
     flex-grow: 1;
     flex-direction : column;
@@ -30,11 +46,38 @@ main{
     overflow-y: auto;
 }
 
-.film{
+.film,.ligne1{
+    display: flex;
+    flex-direction: row;
+}
+
+.ligne1{
+    justify-content: space-between;
+}
+
+.infosfilm{
     display: flex;
     margin : 5px;
     padding: 1px 4px;
-    flex-direction: row;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-around;
+}
+
+.titre{
+    flex-grow: 1;
+}
+
+.OriginalTitle{
+    text-align: end;
+}
+
+.titre,.date,.OriginalTitle,.Slogan{
+    font-size: x-large;
+}
+
+.Resume{
+    text-align: justify;
 }
 
 p{
