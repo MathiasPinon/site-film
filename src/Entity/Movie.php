@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Entity;
 
 use Database\MyPdo;
+use Entity\Collection\MovieCollection;
 use PDO;
 
 class Movie
@@ -17,6 +18,9 @@ class Movie
     private string $tagline ;
     private string $title ;
     private int $id;
+
+
+
     /**
      * Getter de Poster Id
      * @return int
@@ -80,6 +84,7 @@ class Movie
     }
 
 
+
     public static function FindMovieById(int $id): array|false
     {
         $sql = MyPdo::getInstance()->prepare(
@@ -92,6 +97,46 @@ SQL
         $sql -> execute([":id"=>$id]);
         return $sql -> fetchAll(PDO::FETCH_CLASS , Movie::class);
 
+    }
+
+    public static function findIdNotTake():int{
+        $movies = MovieCollection::getAllMovie();
+        $idTake = array();
+        foreach ($movies as $movie){
+            $idTake[] = $movie->id;
+        }
+        $id = 1 ;
+        while(!in_array($id,$idTake)){
+            $id += 1;
+        }
+        return $id;
+    }
+    public static function createMovie(int $posterId=Null , string $originalLanguage=Null , string $originalTitle=Null , string $overivew=Null , string $releaseDate=Null, int $runtime=Null , string $tagline=null , string $title=null , )
+    {
+            $sql = MyPdo::getInstance()->prepare(
+              <<<SQL
+                INSERT INTO movie (id,orignalLanguage,originalTitle,overview,posterId,releaseDate,runtime,tagline,title)
+                VALUES (:id,:originalLanguage,:originalTitle,:overview,:posterId,TO_DATE(:releaseDate,'JJ/MM/YYYY'),:runtime,:tagline,:title)
+            SQL);
+            $id=Movie::findIdNotTake();
+            $sql->execute([":id"=>$id, ":originalLanguage"=>$originalLanguage , ":originalTitle"=>$originalTitle,":overview"=>$overivew,":posterId"=>$posterId,":releaseDate"=>$releaseDate,":tagline"=>$tagline,":title"=>$title]);
+
+    }
+
+    public static function deleteMovie(int $id){
+        $sql=MyPdo::getInstance()->prepare(
+            <<<SQL
+            DELETE FROM movie
+            WHERE id = :id;
+            DELETE FROM cast
+            WHERE idMovie = :id ; 
+            DELETE FROM movie_genre
+            WHERE movieID = :id;
+SQL
+        );
+
+
+        $sql->execute([':id'=>$id]);
     }
 
 
